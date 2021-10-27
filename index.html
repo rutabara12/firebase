@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title></title>
+  </head>
+  <body>
+    <h1>Add user</h1>
+    <form id="add-user" method="get">
+      <label for="fname">First name:</label><br />
+      <input type="text" id="fname" name="fname" /><br />
+      <label for="lname">Last name:</label><br />
+      <input type="text" id="lname" name="lname" /><br /><br />
+      <button id="submit">Send</button>
+    </form>
+    <h2>Users</h2>
+    <ul id="user-list"></ol>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCH8kcUUIRS8DzwicDPXbUHVzbzfwc7hR4",
+        authDomain: "nyabiheke-camp.firebaseapp.com",
+        projectId: "nyabiheke-camp",
+        storageBucket: "nyabiheke-camp.appspot.com",
+        messagingSenderId: "330138984266",
+        appId: "1:330138984266:web:bab6697512283ed632ebb3"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      db.settings({timestampsInSnapshots: true});
+// butto click
+document.getElementById("submit").addEventListener("click", function(e){
+  e.preventDefault();
+// input value
+  let fname=document.getElementById("fname"). value;
+  let lname=document.getElementById("lname"). value
+
+//  store in database 
+let user={FirstName: fname,LastName:lname}
+db.collection("user").add(user);
+});
+
+let userlist=document.getElementById('user-list');
+
+db.collection("user")
+      .get()
+      .then(function (snapshot){
+        snapshot.docs.forEach( function (userDocument){
+          let userItem=document.createElement('li');
+          userItem.innerHTML=userDocument.data().
+          FirstName+" "+userDocument.data().LastName;
+          userlist.appendChild(userItem);
+        });
+        
+      });
+ </script>
+  </body>
+</html>

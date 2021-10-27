@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <form id="form">
+      <label for="fname">First name:</label><br />
+      <input type="text" id="fname" name="fname" /><br />
+      <label for="lname">Last name:</label><br />
+      <input type="text" id="lname" name="lname" /><br /><br />
+      <button onclick="event.preventDefault(); displayInput()" type="submit">
+        Send
+      </button>
+    </form>
+    <script>
+      let form = document.getElementById("form");
+      function displayInput() {
+        let fname = form.fname.value;
+        let lname = form.lname.value;
+        alert(fname + " " + lname);
+      }
+    </script>
+  </body>
+</html>
